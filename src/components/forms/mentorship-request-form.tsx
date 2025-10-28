@@ -11,13 +11,13 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { CalendarIcon, Send } from 'lucide-react';
 
 interface Lecturer {
-    _id: string;
+    id: string;
     name: string;
     email: string;
     profile?: {
-        department: string;
-        expertise: string[];
-        bio: string;
+        department?: string;
+        expertise?: string[];
+        bio?: string;
     };
 }
 
@@ -33,6 +33,7 @@ export function MentorshipRequestForm({ lecturers, studentId }: MentorshipReques
     const [startDate, setStartDate] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -64,6 +65,11 @@ export function MentorshipRequestForm({ lecturers, studentId }: MentorshipReques
                 throw new Error(errorData.error || 'Failed to create mentorship request');
             }
 
+            setSuccess('Mentorship request sent successfully');
+            // Show a blocking browser alert for clear feedback, then navigate
+            if (typeof window !== 'undefined') {
+                window.alert('Mentorship request sent successfully');
+            }
             router.push('/student/dashboard');
             router.refresh();
         } catch (error) {
@@ -94,7 +100,7 @@ export function MentorshipRequestForm({ lecturers, studentId }: MentorshipReques
                             </SelectTrigger>
                             <SelectContent>
                                 {lecturers.map((lecturer) => (
-                                    <SelectItem key={lecturer._id} value={String(lecturer._id)}>
+                                    <SelectItem key={lecturer.id} value={String(lecturer.id)}>
                                         <div className="flex flex-col">
                                             <span className="font-medium">{lecturer.name}</span>
                                             <span className="text-sm text-muted-foreground">
@@ -137,6 +143,11 @@ export function MentorshipRequestForm({ lecturers, studentId }: MentorshipReques
                     {error && (
                         <div className="p-3 bg-destructive/10 border border-destructive/20 rounded-md">
                             <p className="text-sm text-destructive">{error}</p>
+                        </div>
+                    )}
+                    {success && (
+                        <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-md">
+                            <p className="text-sm text-emerald-700">{success}</p>
                         </div>
                     )}
 

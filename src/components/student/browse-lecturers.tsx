@@ -10,7 +10,7 @@ import { Search, User, Building, Target, Mail, Calendar } from 'lucide-react';
 import { MentorshipRequestForm } from '@/components/forms/mentorship-request-form';
 
 interface Lecturer {
-    _id: string;
+    id: string;
     name: string;
     email: string;
     profile?: {
@@ -170,7 +170,7 @@ export function BrowseLecturers({ studentId }: BrowseLecturersProps) {
             ) : (
                 <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                     {filteredLecturers.map((lecturer) => (
-                        <Card key={lecturer._id} className="hover:shadow-md transition-shadow">
+                        <Card key={lecturer.id} className="hover:shadow-md transition-shadow">
                             <CardHeader className="pb-3">
                                 <div className="flex items-start justify-between">
                                     <div className="flex items-center gap-3">
