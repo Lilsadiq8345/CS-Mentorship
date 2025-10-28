@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useSession } from 'next-auth/react';
 import { DashboardLayout } from '@/components/layout/dashboard-layout';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -36,7 +35,7 @@ interface Student {
 }
 
 export default function LecturerStudentsPage() {
-    const { data: _session } = useSession();
+
     const [students, setStudents] = useState<Student[]>([]);
     const [filteredStudents, setFilteredStudents] = useState<Student[]>([]);
     const [searchTerm, setSearchTerm] = useState('');

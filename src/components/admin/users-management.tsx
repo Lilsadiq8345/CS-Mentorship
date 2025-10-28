@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -34,25 +34,7 @@ export function UsersManagement() {
         fetchUsers();
     }, []);
 
-    useEffect(() => {
-        filterUsers();
-    }, [users, searchTerm, selectedRole]);
-
-    const fetchUsers = async () => {
-        try {
-            const response = await fetch('/api/users');
-            if (response.ok) {
-                const data = await response.json();
-                setUsers(data);
-            }
-        } catch (error) {
-            console.error('Error fetching users:', error);
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    const filterUsers = () => {
+    const filterUsers = useCallback(() => {
         let filtered = users;
 
         if (searchTerm) {
@@ -69,7 +51,27 @@ export function UsersManagement() {
         }
 
         setFilteredUsers(filtered);
+    }, [users, searchTerm, selectedRole]);
+
+    useEffect(() => {
+        filterUsers();
+    }, [filterUsers]);
+
+    const fetchUsers = async () => {
+        try {
+            const response = await fetch('/api/users');
+            if (response.ok) {
+                const data = await response.json();
+                setUsers(data);
+            }
+        } catch (error) {
+            console.error('Error fetching users:', error);
+        } finally {
+            setLoading(false);
+        }
     };
+
+
 
     const getRoleBadge = (role: string) => {
         switch (role) {

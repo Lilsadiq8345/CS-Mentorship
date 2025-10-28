@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useSession } from 'next-auth/react';
 import { DashboardLayout } from '@/components/layout/dashboard-layout';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -24,7 +23,7 @@ interface Mentorship {
 }
 
 export default function AdminMentorships() {
-    const { data: _session } = useSession();
+
     const [mentorships, setMentorships] = useState<Mentorship[]>([]);
     const [filteredMentorships, setFilteredMentorships] = useState<Mentorship[]>([]);
     const [searchTerm, setSearchTerm] = useState('');

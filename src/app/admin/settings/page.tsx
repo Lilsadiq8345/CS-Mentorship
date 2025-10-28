@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { useSession } from 'next-auth/react';
 import { DashboardLayout } from '@/components/layout/dashboard-layout';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -16,7 +15,7 @@ import {
 } from 'lucide-react';
 
 export default function AdminSettings() {
-    const { data: _session } = useSession();
+
 
     const [settings, setSettings] = useState({
         emailNotifications: true,

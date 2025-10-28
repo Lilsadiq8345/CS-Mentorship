@@ -23,6 +23,7 @@ interface MentorshipRequest {
 
 interface MentorshipRequestsProps {
   requests: MentorshipRequest[];
+  lecturerId?: string;
 }
 
 export function MentorshipRequests({ requests }: MentorshipRequestsProps) {

@@ -1,11 +1,11 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import { CheckCircle, XCircle, Clock, User, Target, Calendar, MessageSquare } from 'lucide-react';
+import { CheckCircle, XCircle, Clock, User, Target, MessageSquare } from 'lucide-react';
 
 interface Mentorship {
     _id: string;
@@ -32,11 +32,7 @@ export function MyMentorships({ studentId }: MyMentorshipsProps) {
     const [mentorships, setMentorships] = useState<Mentorship[]>([]);
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        fetchMentorships();
-    }, [studentId]);
-
-    const fetchMentorships = async () => {
+    const fetchMentorships = useCallback(async () => {
         try {
             const response = await fetch(`/api/mentorships?studentId=${studentId}`);
             if (response.ok) {
@@ -48,45 +44,13 @@ export function MyMentorships({ studentId }: MyMentorshipsProps) {
         } finally {
             setLoading(false);
         }
-    };
+    }, [studentId]);
 
-    const getStatusBadge = (status: string) => {
-        switch (status) {
-            case 'pending':
-                return <Badge variant="secondary" className="flex items-center gap-1"><Clock className="h-3 w-3" /> Pending</Badge>;
-            case 'active':
-                return <Badge variant="default" className="flex items-center gap-1"><CheckCircle className="h-3 w-3" /> Active</Badge>;
-            case 'completed':
-                return <Badge variant="outline" className="flex items-center gap-1"><CheckCircle className="h-3 w-3" /> Completed</Badge>;
-            case 'rejected':
-                return <Badge variant="destructive" className="flex items-center gap-1"><XCircle className="h-3 w-3" /> Rejected</Badge>;
-            default:
-                return <Badge variant="secondary">{status}</Badge>;
-        }
-    };
+    useEffect(() => {
+        fetchMentorships();
+    }, [fetchMentorships]);
 
-    const formatDate = (dateString: string) => {
-        return new Date(dateString).toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'short',
-            day: 'numeric',
-        });
-    };
-
-    const getStatusColor = (status: string) => {
-        switch (status) {
-            case 'pending':
-                return 'text-yellow-600 bg-yellow-50 border-yellow-200';
-            case 'active':
-                return 'text-green-600 bg-green-50 border-green-200';
-            case 'completed':
-                return 'text-blue-600 bg-blue-50 border-blue-200';
-            case 'rejected':
-                return 'text-red-600 bg-red-50 border-red-200';
-            default:
-                return 'text-gray-600 bg-gray-50 border-gray-200';
-        }
-    };
+    // helpers defined in MentorshipCard; no top-level helpers needed here
 
     if (loading) {
         return (

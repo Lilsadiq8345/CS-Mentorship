@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -40,25 +40,7 @@ export function BrowseLecturers({ studentId }: BrowseLecturersProps) {
         fetchLecturers();
     }, []);
 
-    useEffect(() => {
-        filterLecturers();
-    }, [lecturers, searchTerm, selectedDepartment]);
-
-    const fetchLecturers = async () => {
-        try {
-            const response = await fetch('/api/users?role=lecturer');
-            if (response.ok) {
-                const data = await response.json();
-                setLecturers(data);
-            }
-        } catch (error) {
-            console.error('Error fetching lecturers:', error);
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    const filterLecturers = () => {
+    const filterLecturers = useCallback(() => {
         let filtered = lecturers;
 
         if (searchTerm) {
@@ -77,7 +59,27 @@ export function BrowseLecturers({ studentId }: BrowseLecturersProps) {
         }
 
         setFilteredLecturers(filtered);
+    }, [lecturers, searchTerm, selectedDepartment]);
+
+    useEffect(() => {
+        filterLecturers();
+    }, [filterLecturers]);
+
+    const fetchLecturers = async () => {
+        try {
+            const response = await fetch('/api/users?role=lecturer');
+            if (response.ok) {
+                const data = await response.json();
+                setLecturers(data);
+            }
+        } catch (error) {
+            console.error('Error fetching lecturers:', error);
+        } finally {
+            setLoading(false);
+        }
     };
+
+
 
     const departments = Array.from(
         new Set(lecturers.map(l => l.profile?.department).filter(Boolean))
