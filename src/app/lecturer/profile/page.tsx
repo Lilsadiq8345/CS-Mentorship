@@ -12,7 +12,6 @@ import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
-    User,
     Mail,
     GraduationCap,
     Briefcase,
@@ -23,7 +22,7 @@ import {
 } from 'lucide-react';
 
 export default function LecturerProfile() {
-    const { data: session } = useSession();
+    const { data: _session } = useSession();
     const [isEditing, setIsEditing] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 

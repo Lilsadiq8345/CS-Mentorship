@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useSession, signOut } from 'next-auth/react';
 import { Button } from '@/components/ui/button';
-import { GraduationCap, Menu, X, User, LogOut, Settings, Bell } from 'lucide-react';
+import { GraduationCap, Menu, X, LogOut, Bell } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 

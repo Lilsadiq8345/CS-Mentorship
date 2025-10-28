@@ -2,12 +2,9 @@
 
 import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
-import { Target, Plus, Edit, Trash2, CheckCircle, Clock } from 'lucide-react';
+import { Target } from 'lucide-react';
 
 export default function GoalsPage() {
     const [goals] = useState([

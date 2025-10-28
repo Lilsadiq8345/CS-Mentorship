@@ -23,10 +23,9 @@ interface MentorshipRequest {
 
 interface MentorshipRequestsProps {
   requests: MentorshipRequest[];
-  lecturerId: string;
 }
 
-export function MentorshipRequests({ requests, lecturerId }: MentorshipRequestsProps) {
+export function MentorshipRequests({ requests }: MentorshipRequestsProps) {
   const router = useRouter();
   const [updating, setUpdating] = useState<string | null>(null);
 

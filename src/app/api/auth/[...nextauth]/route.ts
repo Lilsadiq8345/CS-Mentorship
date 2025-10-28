@@ -1,4 +1,4 @@
-import NextAuth from 'next-auth';
+import NextAuth from 'next-auth/next';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import bcrypt from 'bcryptjs';
 import { supabase } from '@/lib/supabase';
@@ -30,7 +30,7 @@ const handler = NextAuth({
 
           // Verify password
           const isPasswordValid = await bcrypt.compare(credentials.password, user.password);
-          
+
           if (!isPasswordValid) {
             return null;
           }

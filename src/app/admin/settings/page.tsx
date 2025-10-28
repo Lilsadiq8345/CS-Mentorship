@@ -9,16 +9,14 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import {
-    Settings,
     Bell,
     Shield,
-    Mail,
     Database,
     Save
 } from 'lucide-react';
 
 export default function AdminSettings() {
-    const { data: session } = useSession();
+    const { data: _session } = useSession();
 
     const [settings, setSettings] = useState({
         emailNotifications: true,

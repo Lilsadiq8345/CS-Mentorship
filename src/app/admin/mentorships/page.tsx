@@ -10,13 +10,8 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import {
     Search,
-    Filter,
     Eye,
-    Edit,
-    Trash2,
-    CheckCircle,
-    Clock,
-    XCircle
+    Edit
 } from 'lucide-react';
 
 interface Mentorship {
@@ -29,7 +24,7 @@ interface Mentorship {
 }
 
 export default function AdminMentorships() {
-    const { data: session } = useSession();
+    const { data: _session } = useSession();
     const [mentorships, setMentorships] = useState<Mentorship[]>([]);
     const [filteredMentorships, setFilteredMentorships] = useState<Mentorship[]>([]);
     const [searchTerm, setSearchTerm] = useState('');

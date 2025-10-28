@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Users, GraduationCap, Target, MessageSquare, ArrowRight, BookOpen, Award, Globe } from "lucide-react";
 import Link from "next/link";
@@ -44,7 +44,7 @@ export default function Home() {
             <span className="text-indigo-600"> Expert Mentors</span>
           </h1>
           <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-            Niger State Polytechnic's intelligent mentorship platform pairs Computer Science students
+            Niger State Polytechnic&apos;s intelligent mentorship platform pairs Computer Science students
             with experienced lecturers and industry professionals to accelerate career development
             and academic excellence.
           </p>
@@ -171,7 +171,7 @@ export default function Home() {
           <div className="bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl p-8 text-white">
             <h3 className="text-2xl font-bold mb-4">Ready to Get Started?</h3>
             <p className="text-indigo-100 mb-6">
-              Join Niger State Polytechnic's mentorship community and accelerate your career in Computer Science.
+              Join Niger State Polytechnic&apos;s mentorship community and accelerate your career in Computer Science.
             </p>
             <Link href="/auth/signup">
               <Button variant="secondary" size="lg" className="w-full">
