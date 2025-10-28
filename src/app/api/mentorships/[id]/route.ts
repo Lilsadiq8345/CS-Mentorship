@@ -3,9 +3,11 @@ import { supabase } from '@/lib/supabase';
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
+
     const { data: mentorship, error } = await supabase
       .from('mentorships')
       .select(`
@@ -13,7 +15,7 @@ export async function GET(
         students:users!mentorships_student_id_fkey(id, name, email),
         lecturers:users!mentorships_lecturer_id_fkey(id, name, email)
       `)
-      .eq('id', params.id)
+      .eq('id', id)
       .single();
 
     if (error || !mentorship) {
@@ -35,14 +37,21 @@ export async function GET(
 
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const body = await request.json();
     const { status, notes, rating, feedback, start_date } = body;
 
     // Build update object
-    const updateData: any = {};
+    const updateData: {
+      status?: string;
+      notes?: string;
+      rating?: number;
+      feedback?: string;
+      start_date?: string;
+    } = {};
     if (status !== undefined) updateData.status = status;
     if (notes !== undefined) updateData.notes = notes;
     if (rating !== undefined) updateData.rating = rating;
@@ -52,7 +61,7 @@ export async function PATCH(
     const { data: mentorship, error } = await supabase
       .from('mentorships')
       .update(updateData)
-      .eq('id', params.id)
+      .eq('id', id)
       .select()
       .single();
 
@@ -79,13 +88,15 @@ export async function PATCH(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
+
     const { error } = await supabase
       .from('mentorships')
       .delete()
-      .eq('id', params.id);
+      .eq('id', id);
 
     if (error) {
       console.error('Error deleting mentorship:', error);

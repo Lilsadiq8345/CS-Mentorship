@@ -74,9 +74,9 @@ export default function SignUp() {
                 const data = await response.json();
                 setError(data.error || 'Failed to create account');
             }
-        } catch (error) {
-            setError('An error occurred. Please try again.');
-        } finally {
+    } catch {
+      setError('An error occurred. Please try again.');
+    } finally {
             setIsLoading(false);
         }
     };

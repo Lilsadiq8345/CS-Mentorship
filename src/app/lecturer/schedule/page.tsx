@@ -9,7 +9,7 @@ import { Badge } from '@/components/ui/badge';
 import { Calendar } from '@/components/ui/calendar';
 import 'react-day-picker/dist/style.css';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { 
+import {
     Calendar as CalendarIcon,
     Clock,
     Users,
@@ -36,7 +36,7 @@ interface Meeting {
 }
 
 export default function LecturerSchedulePage() {
-    const { data: session } = useSession();
+    const { data: _session } = useSession();
     const [meetings, setMeetings] = useState<Meeting[]>([]);
     const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date());
     const [viewMode, setViewMode] = useState<'calendar' | 'list'>('calendar');
@@ -113,7 +113,7 @@ export default function LecturerSchedulePage() {
         }
     };
 
-    const todayMeetings = meetings.filter(meeting => 
+    const todayMeetings = meetings.filter(meeting =>
         format(meeting.date, 'yyyy-MM-dd') === format(selectedDate || new Date(), 'yyyy-MM-dd')
     );
 
@@ -154,7 +154,7 @@ export default function LecturerSchedulePage() {
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
                     <Card>
                         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                            <CardTitle className="text-sm font-medium">Today's Meetings</CardTitle>
+                            <CardTitle className="text-sm font-medium">Today&apos;s Meetings</CardTitle>
                             <CalendarIcon className="h-4 w-4 text-muted-foreground" />
                         </CardHeader>
                         <CardContent>
@@ -238,7 +238,7 @@ export default function LecturerSchedulePage() {
                     <div className="space-y-6">
                         <Card>
                             <CardHeader>
-                                <CardTitle>Today's Meetings</CardTitle>
+                                <CardTitle>Today&apos;s Meetings</CardTitle>
                                 <CardDescription>
                                     {selectedDate ? format(selectedDate, 'EEEE, MMMM d, yyyy') : 'Select a date'}
                                 </CardDescription>

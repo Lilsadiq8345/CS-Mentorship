@@ -3,13 +3,15 @@ import { supabase } from '@/lib/supabase';
 
 export async function GET(
     request: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
+        const { id } = await params;
+
         const { data: user, error } = await supabase
             .from('users')
             .select('id, name, email, role, created_at')
-            .eq('id', params.id)
+            .eq('id', id)
             .single();
 
         if (error) {
@@ -19,6 +21,7 @@ export async function GET(
                     { status: 404 }
                 );
             }
+            console.error('User fetch error:', error);
             return NextResponse.json(
                 { error: 'Failed to fetch user' },
                 { status: 500 }
@@ -38,13 +41,18 @@ export async function GET(
 
 export async function PATCH(
     request: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
+        const { id } = await params;
         const body = await request.json();
         const { name, email, role } = body;
 
-        const updateData: any = {};
+        const updateData: {
+            name?: string;
+            email?: string;
+            role?: string;
+        } = {};
         if (name) updateData.name = name;
         if (email) updateData.email = email;
         if (role) updateData.role = role;
@@ -59,7 +67,7 @@ export async function PATCH(
         const { data: user, error } = await supabase
             .from('users')
             .update(updateData)
-            .eq('id', params.id)
+            .eq('id', id)
             .select('id, name, email, role, created_at')
             .single();
 
@@ -71,7 +79,10 @@ export async function PATCH(
             );
         }
 
-        return NextResponse.json(user);
+        return NextResponse.json({
+            message: 'User updated successfully',
+            user,
+        });
 
     } catch (error) {
         console.error('User update error:', error);
@@ -84,13 +95,15 @@ export async function PATCH(
 
 export async function DELETE(
     request: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
+        const { id } = await params;
+
         const { error } = await supabase
             .from('users')
             .delete()
-            .eq('id', params.id);
+            .eq('id', id);
 
         if (error) {
             console.error('User deletion error:', error);
@@ -100,7 +113,9 @@ export async function DELETE(
             );
         }
 
-        return NextResponse.json({ message: 'User deleted successfully' });
+        return NextResponse.json({
+            message: 'User deleted successfully',
+        });
 
     } catch (error) {
         console.error('User deletion error:', error);

@@ -32,7 +32,7 @@ export function MentorshipRequests({ requests, lecturerId }: MentorshipRequestsP
 
   const handleStatusUpdate = async (mentorshipId: string, status: 'active' | 'rejected') => {
     setUpdating(mentorshipId);
-    
+
     try {
       const response = await fetch(`/api/mentorships/${mentorshipId}`, {
         method: 'PATCH',
@@ -85,7 +85,7 @@ export function MentorshipRequests({ requests, lecturerId }: MentorshipRequestsP
             <User className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
             <h3 className="text-lg font-medium text-muted-foreground mb-2">No Mentorship Requests</h3>
             <p className="text-sm text-muted-foreground">
-              You don't have any pending mentorship requests at the moment.
+              You don&apos;t have any pending mentorship requests at the moment.
             </p>
           </div>
         </CardContent>

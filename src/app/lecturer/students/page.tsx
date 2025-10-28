@@ -11,7 +11,6 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import {
     Search,
-    Filter,
     MessageSquare,
     Calendar,
     BookOpen,
@@ -19,10 +18,8 @@ import {
     TrendingUp,
     Clock,
     CheckCircle,
-    AlertCircle,
     Users
 } from 'lucide-react';
-import Link from 'next/link';
 
 interface Student {
     id: string;
@@ -39,7 +36,7 @@ interface Student {
 }
 
 export default function LecturerStudentsPage() {
-    const { data: session } = useSession();
+    const { data: _session } = useSession();
     const [students, setStudents] = useState<Student[]>([]);
     const [filteredStudents, setFilteredStudents] = useState<Student[]>([]);
     const [searchTerm, setSearchTerm] = useState('');

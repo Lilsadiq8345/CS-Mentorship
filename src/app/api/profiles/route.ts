@@ -60,7 +60,18 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const profileData: any = {
+    const profileData: {
+      user_id: string;
+      created_at: string;
+      major?: string;
+      year?: number;
+      department?: string;
+      expertise?: string[];
+      research_areas?: string[];
+      years_of_experience?: number;
+      bio?: string;
+      max_students?: number;
+    } = {
       user_id: userId,
       created_at: new Date().toISOString()
     };

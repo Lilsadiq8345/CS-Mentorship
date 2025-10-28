@@ -94,7 +94,7 @@ export default function LecturerDashboard() {
                         Welcome back, {session?.user?.name}! 👨‍🏫
                     </h1>
                     <p className="text-gray-600">
-                        Here's an overview of your mentorship activities and students.
+                        Here&apos;s an overview of your mentorship activities and students.
                     </p>
                 </div>
 
@@ -173,7 +173,7 @@ export default function LecturerDashboard() {
                         <CardHeader>
                             <CardTitle>Recent Students</CardTitle>
                             <CardDescription>
-                                Students you've been working with recently
+                                Students you&apos;ve been working with recently
                             </CardDescription>
                         </CardHeader>
                         <CardContent>

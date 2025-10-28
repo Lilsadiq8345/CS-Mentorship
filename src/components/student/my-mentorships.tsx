@@ -107,7 +107,7 @@ export function MyMentorships({ studentId }: MyMentorshipsProps) {
                         <User className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
                         <h3 className="text-lg font-medium text-muted-foreground mb-2">No Mentorships Yet</h3>
                         <p className="text-sm text-muted-foreground mb-4">
-                            You haven't requested any mentorships yet. Start by browsing available lecturers.
+                            You haven&apos;t requested any mentorships yet. Start by browsing available lecturers.
                         </p>
                         <Button asChild>
                             <a href="/student/browse-lecturers">Browse Lecturers</a>

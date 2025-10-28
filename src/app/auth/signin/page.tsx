@@ -36,7 +36,7 @@ export default function SignIn() {
         const session = await getSession();
         if (session?.user) {
           // Redirect based on user role
-          const role = (session.user as any).role;
+          const role = session.user.role as 'admin' | 'lecturer' | 'student';
           if (role === 'admin') {
             router.push('/admin/dashboard');
           } else if (role === 'lecturer') {
@@ -46,7 +46,7 @@ export default function SignIn() {
           }
         }
       }
-    } catch (error) {
+    } catch {
       setError('An error occurred. Please try again.');
     } finally {
       setIsLoading(false);
@@ -117,7 +117,7 @@ export default function SignIn() {
             </Button>
 
             <div className="text-center text-sm text-gray-600">
-              Don't have an account?{' '}
+              Don&apos;t have an account?{' '}
               <Link href="/auth/signup" className="text-indigo-600 hover:text-indigo-500 font-medium">
                 Sign up
               </Link>

@@ -6,11 +6,11 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
-import { 
-  Users, 
-  Target, 
-  BookOpen, 
-  TrendingUp, 
+import {
+  Users,
+  Target,
+  BookOpen,
+  TrendingUp,
   Calendar,
   MessageSquare,
   CheckCircle,
@@ -70,7 +70,7 @@ export default function StudentDashboard() {
             Welcome back, {session?.user?.name}! 👋
           </h1>
           <p className="text-gray-600">
-            Here's what's happening with your mentorship journey today.
+            Here&apos;s what&apos;s happening with your mentorship journey today.
           </p>
         </div>
 
@@ -146,7 +146,7 @@ export default function StudentDashboard() {
                 </div>
                 <Progress value={mockData.progressPercentage} className="h-2" />
               </div>
-              
+
               <div className="space-y-2">
                 <div className="flex justify-between text-sm">
                   <span>Skill Development</span>
@@ -154,7 +154,7 @@ export default function StudentDashboard() {
                 </div>
                 <Progress value={78} className="h-2" />
               </div>
-              
+
               <div className="space-y-2">
                 <div className="flex justify-between text-sm">
                   <span>Network Building</span>
@@ -179,21 +179,21 @@ export default function StudentDashboard() {
                   Find New Mentors
                 </Button>
               </Link>
-              
+
               <Link href="/student/goals">
                 <Button className="w-full justify-start" variant="outline">
                   <Target className="mr-2 h-4 w-4" />
                   Set New Goals
                 </Button>
               </Link>
-              
+
               <Link href="/student/schedule">
                 <Button className="w-full justify-start" variant="outline">
                   <Calendar className="mr-2 h-4 w-4" />
                   Schedule Meeting
                 </Button>
               </Link>
-              
+
               <Link href="/student/resources">
                 <Button className="w-full justify-start" variant="outline">
                   <TrendingUp className="mr-2 h-4 w-4" />
@@ -259,7 +259,7 @@ export default function StudentDashboard() {
                   <p className="text-xs text-gray-500">2:00 PM - 3:00 PM</p>
                 </div>
               </div>
-              
+
               <div className="flex items-center justify-between p-4 bg-green-50 rounded-lg">
                 <div className="flex items-center space-x-3">
                   <Clock className="h-5 w-5 text-green-600" />

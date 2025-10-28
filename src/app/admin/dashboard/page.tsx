@@ -8,9 +8,7 @@ import { Badge } from '@/components/ui/badge';
 import {
     Users,
     UserCheck,
-    UserX,
     TrendingUp,
-    AlertTriangle,
     CheckCircle,
     Clock,
     BarChart3
@@ -103,7 +101,7 @@ export default function AdminDashboard() {
                         Welcome back, {session?.user?.name}! 👨‍💼
                     </h1>
                     <p className="text-gray-600">
-                        Here's an overview of your mentorship platform and system status.
+                        Here&apos;s an overview of your mentorship platform and system status.
                     </p>
                 </div>
 
