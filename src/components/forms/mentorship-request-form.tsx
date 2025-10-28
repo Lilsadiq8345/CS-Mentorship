@@ -28,7 +28,7 @@ interface MentorshipRequestFormProps {
 
 export function MentorshipRequestForm({ lecturers, studentId }: MentorshipRequestFormProps) {
     const router = useRouter();
-    const [selectedLecturer, setSelectedLecturer] = useState('');
+    const [selectedLecturer, setSelectedLecturer] = useState<string | undefined>(undefined);
     const [goals, setGoals] = useState('');
     const [startDate, setStartDate] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -88,7 +88,7 @@ export function MentorshipRequestForm({ lecturers, studentId }: MentorshipReques
                 <form onSubmit={handleSubmit} className="space-y-6">
                     <div className="space-y-2">
                         <Label htmlFor="lecturer">Select Lecturer</Label>
-                        <Select value={selectedLecturer || undefined} onValueChange={setSelectedLecturer}>
+                        <Select value={selectedLecturer} onValueChange={setSelectedLecturer}>
                             <SelectTrigger>
                                 <SelectValue placeholder="Choose a lecturer..." />
                             </SelectTrigger>

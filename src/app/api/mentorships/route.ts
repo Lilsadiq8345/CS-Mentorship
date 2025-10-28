@@ -46,7 +46,7 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
     try {
-        const { studentId, lecturerId, goals, notes } = await request.json();
+        const { studentId, lecturerId, goals, notes, startDate } = await request.json();
 
         if (!studentId || !lecturerId || !goals) {
             return NextResponse.json(
@@ -76,7 +76,8 @@ export async function POST(request: NextRequest) {
             .insert({
                 student_id: studentId,
                 lecturer_id: lecturerId,
-                goals,
+                goals: Array.isArray(goals) ? goals.join(', ') : String(goals),
+                start_date: startDate ? new Date(startDate).toISOString() : null,
                 notes: notes || '',
                 status: 'pending',
                 created_at: new Date().toISOString()
