@@ -172,7 +172,7 @@ export default function StudentDashboard() {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-3">
-              <Link href="/student/mentors">
+              <Link href="/student/browse-lecturers">
                 <Button className="w-full justify-start" variant="outline">
                   <BookOpen className="mr-2 h-4 w-4" />
                   Find New Mentors

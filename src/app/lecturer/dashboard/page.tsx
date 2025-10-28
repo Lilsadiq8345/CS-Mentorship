@@ -220,7 +220,7 @@ export default function LecturerDashboard() {
                             </CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-3">
-                            <Link href="/lecturer/requests">
+                            <Link href="/lecturer/mentorship-requests">
                                 <Button className="w-full justify-start" variant="outline">
                                     <AlertCircle className="mr-2 h-4 w-4" />
                                     Review Mentorship Requests
