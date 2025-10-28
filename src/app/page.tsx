@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Users, GraduationCap, Target, MessageSquare, ArrowRight } from "lucide-react";
+import { Users, GraduationCap, Target, MessageSquare, ArrowRight, BookOpen, Award, Globe } from "lucide-react";
 import Link from "next/link";
 
 export default function Home() {
@@ -13,7 +13,10 @@ export default function Home() {
           <div className="flex justify-between items-center py-4">
             <div className="flex items-center space-x-2">
               <GraduationCap className="h-8 w-8 text-indigo-600" />
-              <h1 className="text-2xl font-bold text-gray-900">CS Mentorship</h1>
+              <div>
+                <h1 className="text-2xl font-bold text-gray-900">CS Mentorship</h1>
+                <p className="text-sm text-gray-600">Niger State Polytechnic</p>
+              </div>
             </div>
             <div className="flex space-x-4">
               <Link href="/auth/signin">
@@ -30,13 +33,20 @@ export default function Home() {
       {/* Hero Section */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="text-center mb-16">
+          <div className="mb-6">
+            <Badge variant="outline" className="text-sm px-4 py-2 mb-4">
+              <Award className="h-4 w-4 mr-2" />
+              Niger State Polytechnic Official Platform
+            </Badge>
+          </div>
           <h1 className="text-5xl font-bold text-gray-900 mb-6">
             Connect Students with
             <span className="text-indigo-600"> Expert Mentors</span>
           </h1>
           <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-            Our intelligent matching system pairs Computer Science students with experienced lecturers 
-            and industry professionals to accelerate career development and academic success.
+            Niger State Polytechnic's intelligent mentorship platform pairs Computer Science students
+            with experienced lecturers and industry professionals to accelerate career development
+            and academic excellence.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/auth/signup">
@@ -92,22 +102,83 @@ export default function Home() {
           </Card>
         </div>
 
-        {/* Stats Section */}
+        {/* Institution Section */}
         <div className="bg-white rounded-2xl shadow-lg p-8 mb-20">
-          <h2 className="text-3xl font-bold text-center mb-8">Platform Impact</h2>
+          <div className="text-center mb-8">
+            <div className="mx-auto w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4">
+              <BookOpen className="h-8 w-8 text-blue-600" />
+            </div>
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">Niger State Polytechnic</h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Empowering students through innovative mentorship programs that bridge the gap between
+              academic learning and real-world application in Computer Science and Technology.
+            </p>
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="text-center">
-              <div className="text-4xl font-bold text-indigo-600 mb-2">500+</div>
-              <div className="text-gray-600">Students Matched</div>
+              <div className="text-4xl font-bold text-indigo-600 mb-2">200+</div>
+              <div className="text-gray-600">Active Students</div>
             </div>
             <div className="text-center">
-              <div className="text-4xl font-bold text-green-600 mb-2">50+</div>
-              <div className="text-gray-600">Expert Mentors</div>
+              <div className="text-4xl font-bold text-green-600 mb-2">25+</div>
+              <div className="text-gray-600">Expert Lecturers</div>
             </div>
             <div className="text-center">
-              <div className="text-4xl font-bold text-purple-600 mb-2">95%</div>
-              <div className="text-gray-600">Success Rate</div>
+              <div className="text-4xl font-bold text-purple-600 mb-2">98%</div>
+              <div className="text-gray-600">Student Satisfaction</div>
             </div>
+          </div>
+        </div>
+
+        {/* Benefits Section */}
+        <div className="grid md:grid-cols-2 gap-12 mb-20">
+          <div>
+            <h2 className="text-3xl font-bold text-gray-900 mb-6">
+              Why Choose Our Mentorship Platform?
+            </h2>
+            <div className="space-y-6">
+              <div className="flex items-start space-x-4">
+                <div className="w-8 h-8 bg-indigo-100 rounded-full flex items-center justify-center flex-shrink-0">
+                  <GraduationCap className="h-4 w-4 text-indigo-600" />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-gray-900">Academic Excellence</h3>
+                  <p className="text-gray-600">Direct access to experienced lecturers and industry professionals</p>
+                </div>
+              </div>
+              <div className="flex items-start space-x-4">
+                <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+                  <Target className="h-4 w-4 text-green-600" />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-gray-900">Career Guidance</h3>
+                  <p className="text-gray-600">Personalized career development plans and industry insights</p>
+                </div>
+              </div>
+              <div className="flex items-start space-x-4">
+                <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0">
+                  <Globe className="h-4 w-4 text-purple-600" />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-gray-900">Industry Connections</h3>
+                  <p className="text-gray-600">Build professional networks and gain real-world experience</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl p-8 text-white">
+            <h3 className="text-2xl font-bold mb-4">Ready to Get Started?</h3>
+            <p className="text-indigo-100 mb-6">
+              Join Niger State Polytechnic's mentorship community and accelerate your career in Computer Science.
+            </p>
+            <Link href="/auth/signup">
+              <Button variant="secondary" size="lg" className="w-full">
+                Join Now
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+            </Link>
           </div>
         </div>
 
@@ -117,7 +188,7 @@ export default function Home() {
             Ready to Transform Your Career?
           </h2>
           <p className="text-lg text-gray-600 mb-8">
-            Join thousands of students who have accelerated their career growth through mentorship
+            Join hundreds of Niger State Polytechnic students who have accelerated their career growth through mentorship
           </p>
           <Link href="/auth/signup">
             <Button size="lg" className="text-lg px-8 py-6">
@@ -135,17 +206,20 @@ export default function Home() {
             <div>
               <div className="flex items-center space-x-2 mb-4">
                 <GraduationCap className="h-6 w-6 text-indigo-400" />
-                <span className="text-xl font-bold">CS Mentorship</span>
+                <div>
+                  <span className="text-xl font-bold">CS Mentorship</span>
+                  <p className="text-sm text-gray-400">Niger State Polytechnic</p>
+                </div>
               </div>
               <p className="text-gray-400">
-                Connecting students with expert mentors for career success
+                Empowering students through innovative mentorship programs
               </p>
             </div>
             <div>
               <h3 className="font-semibold mb-4">Platform</h3>
               <ul className="space-y-2 text-gray-400">
                 <li><Link href="/features" className="hover:text-white">Features</Link></li>
-                <li><Link href="/pricing" className="hover:text-white">Pricing</Link></li>
+                <li><Link href="/pricing" className="hover:text-white">Programs</Link></li>
                 <li><Link href="/about" className="hover:text-white">About</Link></li>
               </ul>
             </div>
@@ -158,15 +232,16 @@ export default function Home() {
               </ul>
             </div>
             <div>
-              <h3 className="font-semibold mb-4">Legal</h3>
+              <h3 className="font-semibold mb-4">Institution</h3>
               <ul className="space-y-2 text-gray-400">
                 <li><Link href="/privacy" className="hover:text-white">Privacy</Link></li>
                 <li><Link href="/terms" className="hover:text-white">Terms</Link></li>
+                <li><Link href="/academic" className="hover:text-white">Academic Policies</Link></li>
               </ul>
             </div>
           </div>
           <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-            <p>&copy; 2024 CS Mentorship. All rights reserved.</p>
+            <p>&copy; 2024 Niger State Polytechnic - CS Mentorship Platform. All rights reserved.</p>
           </div>
         </div>
       </footer>
