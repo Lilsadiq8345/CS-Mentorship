@@ -88,13 +88,13 @@ export function MentorshipRequestForm({ lecturers, studentId }: MentorshipReques
                 <form onSubmit={handleSubmit} className="space-y-6">
                     <div className="space-y-2">
                         <Label htmlFor="lecturer">Select Lecturer</Label>
-                        <Select value={selectedLecturer} onValueChange={setSelectedLecturer}>
+                        <Select value={selectedLecturer || undefined} onValueChange={setSelectedLecturer}>
                             <SelectTrigger>
                                 <SelectValue placeholder="Choose a lecturer..." />
                             </SelectTrigger>
                             <SelectContent>
                                 {lecturers.map((lecturer) => (
-                                    <SelectItem key={lecturer._id} value={lecturer._id}>
+                                    <SelectItem key={lecturer._id} value={String(lecturer._id)}>
                                         <div className="flex flex-col">
                                             <span className="font-medium">{lecturer.name}</span>
                                             <span className="text-sm text-muted-foreground">
