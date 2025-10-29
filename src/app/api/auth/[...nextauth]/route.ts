@@ -24,7 +24,13 @@ const handler = NextAuth({
             .eq('email', credentials.email)
             .single();
 
-          if (error || !user) {
+          if (error) {
+            console.error('Supabase error fetching user:', error);
+            return null;
+          }
+
+          if (!user) {
+            console.error('User not found:', credentials.email);
             return null;
           }
 
@@ -32,6 +38,7 @@ const handler = NextAuth({
           const isPasswordValid = await bcrypt.compare(credentials.password, user.password);
 
           if (!isPasswordValid) {
+            console.error('Password mismatch for:', credentials.email);
             return null;
           }
 
