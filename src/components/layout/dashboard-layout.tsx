@@ -134,14 +134,12 @@ export function DashboardLayout({ children, userRole }: DashboardLayoutProps) {
                                     <p className="font-medium text-gray-700">{session?.user?.name}</p>
                                     <p className="text-gray-500 capitalize">{userRole}</p>
                                 </div>
-                                <Button
-                                    variant="ghost"
-                                    size="sm"
-                                    onClick={() => signOut({ callbackUrl: '/auth/signin' })}
-                                    className="text-gray-500 hover:text-gray-700"
+                                <a
+                                    href="/api/auth/signout?callbackUrl=/auth/signin"
+                                    className="text-gray-500 hover:text-gray-700 p-2 rounded-md inline-flex"
                                 >
                                     <LogOut className="h-5 w-5" />
-                                </Button>
+                                </a>
                             </div>
                         </div>
                     </div>

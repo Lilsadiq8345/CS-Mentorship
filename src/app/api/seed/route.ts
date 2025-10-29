@@ -42,7 +42,7 @@ async function seedUsers() {
           // Update existing user's password to ensure it matches
           const { data: updatedUser, error: updateError } = await supabaseServer
             .from('users')
-            .update({ 
+            .update({
               password: hashedPassword,
               name: userData.name,
               role: userData.role
@@ -74,10 +74,10 @@ async function seedUsers() {
         }
       } catch (error) {
         console.error(`Error processing user ${userData.email}:`, error);
-        results.push({ 
-          email: userData.email, 
-          status: 'error', 
-          error: error instanceof Error ? error.message : 'Unknown error' 
+        results.push({
+          email: userData.email,
+          status: 'error',
+          error: error instanceof Error ? error.message : 'Unknown error'
         });
       }
     }
@@ -93,10 +93,10 @@ async function seedUsers() {
   } catch (error) {
     console.error('Seed error:', error);
     return NextResponse.json(
-      { 
+      {
         success: false,
-        error: 'Internal server error', 
-        details: error instanceof Error ? error.message : 'Unknown error' 
+        error: 'Internal server error',
+        details: error instanceof Error ? error.message : 'Unknown error'
       },
       { status: 500 }
     );
