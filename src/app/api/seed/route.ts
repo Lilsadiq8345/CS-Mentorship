@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { supabaseServer } from '@/lib/supabase-server';
 import bcrypt from 'bcryptjs';
 
-export async function POST() {
+async function seedUsers() {
   try {
     const hashedPassword = await bcrypt.hash('password123', 12);
 
@@ -36,7 +36,11 @@ export async function POST() {
     ].filter(user => !existingEmails.includes(user.email));
 
     if (demoUsers.length === 0) {
-      return NextResponse.json({ message: 'Demo users already exist' });
+      return NextResponse.json({ 
+        success: true,
+        message: 'Demo users already exist',
+        users: existingUsers
+      });
     }
 
     // Insert users that don't exist
@@ -48,13 +52,18 @@ export async function POST() {
     if (error) {
       console.error('Error seeding users:', error);
       return NextResponse.json(
-        { error: 'Failed to seed users', details: error.message },
+        { 
+          success: false,
+          error: 'Failed to seed users', 
+          details: error.message 
+        },
         { status: 500 }
       );
     }
 
     return NextResponse.json({
-      message: `Successfully created ${insertedUsers?.length || 0} demo users`,
+      success: true,
+      message: `Successfully created ${insertedUsers?.length || 0} demo user(s)`,
       users: insertedUsers,
     });
   } catch (error) {
@@ -64,5 +73,13 @@ export async function POST() {
       { status: 500 }
     );
   }
+}
+
+export async function GET() {
+  return seedUsers();
+}
+
+export async function POST() {
+  return seedUsers();
 }
 
