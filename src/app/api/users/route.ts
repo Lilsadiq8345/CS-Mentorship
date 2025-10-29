@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { supabase } from '@/lib/supabase';
+import { supabaseServer } from '@/lib/supabase-server';
 
 export async function GET(request: NextRequest) {
     try {
         const { searchParams } = new URL(request.url);
         const role = searchParams.get('role');
 
-        let query = supabase.from('users').select('*');
+        let query = supabaseServer.from('users').select('*');
 
         if (role) {
             query = query.eq('role', role);
@@ -54,7 +54,7 @@ export async function POST(request: NextRequest) {
         }
 
         // Check if user already exists
-        const { data: existingUser } = await supabase
+        const { data: existingUser } = await supabaseServer
             .from('users')
             .select('id')
             .eq('email', email)
@@ -71,7 +71,7 @@ export async function POST(request: NextRequest) {
         const bcrypt = await import('bcryptjs');
         const hashedPassword = await bcrypt.hash(password, 12);
 
-        const { data: user, error } = await supabase
+        const { data: user, error } = await supabaseServer
             .from('users')
             .insert({
                 name,

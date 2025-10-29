@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { supabase } from '@/lib/supabase';
+import { supabaseServer } from '@/lib/supabase-server';
 
 export async function GET(request: NextRequest) {
     try {
@@ -7,7 +7,7 @@ export async function GET(request: NextRequest) {
         const studentId = searchParams.get('studentId');
         const lecturerId = searchParams.get('lecturerId');
 
-        let query = supabase
+        let query = supabaseServer
             .from('mentorships')
             .select(`
                 *,
@@ -56,7 +56,7 @@ export async function POST(request: NextRequest) {
         }
 
         // Check if mentorship already exists
-        const { data: existingMentorship } = await supabase
+        const { data: existingMentorship } = await supabaseServer
             .from('mentorships')
             .select('id')
             .eq('student_id', studentId)
@@ -71,7 +71,7 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        const { data: mentorship, error } = await supabase
+        const { data: mentorship, error } = await supabaseServer
             .from('mentorships')
             .insert({
                 student_id: studentId,

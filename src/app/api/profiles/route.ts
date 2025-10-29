@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { supabase } from '@/lib/supabase';
+import { supabaseServer } from '@/lib/supabase-server';
 
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
     const userId = searchParams.get('userId');
 
-    let query = supabase
+    let query = supabaseServer
       .from('profiles')
       .select(`
                 *,
@@ -85,7 +85,7 @@ export async function POST(request: NextRequest) {
     if (bio) profileData.bio = bio;
     if (maxStudents) profileData.max_students = maxStudents;
 
-    const { data: profile, error } = await supabase
+    const { data: profile, error } = await supabaseServer
       .from('profiles')
       .insert(profileData)
       .select('*')
