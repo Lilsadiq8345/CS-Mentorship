@@ -5,14 +5,7 @@ import bcrypt from 'bcryptjs';
 async function seedUsers() {
   try {
     const hashedPassword = await bcrypt.hash('password123', 12);
-
-    // Check if users already exist
-    const { data: existingUsers } = await supabaseServer
-      .from('users')
-      .select('email')
-      .in('email', ['student@example.com', 'lecturer@example.com', 'admin@example.com']);
-
-    const existingEmails = existingUsers?.map(u => u.email) || [];
+    const results = [];
 
     const demoUsers = [
       {
@@ -33,43 +26,78 @@ async function seedUsers() {
         password: hashedPassword,
         role: 'admin',
       },
-    ].filter(user => !existingEmails.includes(user.email));
+    ];
 
-    if (demoUsers.length === 0) {
-      return NextResponse.json({ 
-        success: true,
-        message: 'Demo users already exist',
-        users: existingUsers
-      });
+    // Process each user individually
+    for (const userData of demoUsers) {
+      try {
+        // Check if user exists
+        const { data: existingUser } = await supabaseServer
+          .from('users')
+          .select('id, email')
+          .eq('email', userData.email)
+          .maybeSingle();
+
+        if (existingUser) {
+          // Update existing user's password to ensure it matches
+          const { data: updatedUser, error: updateError } = await supabaseServer
+            .from('users')
+            .update({ 
+              password: hashedPassword,
+              name: userData.name,
+              role: userData.role
+            })
+            .eq('email', userData.email)
+            .select('id, email, name, role')
+            .single();
+
+          if (updateError) {
+            console.error(`Error updating user ${userData.email}:`, updateError);
+            results.push({ email: userData.email, status: 'update_failed', error: updateError.message });
+          } else {
+            results.push({ email: userData.email, status: 'updated', user: updatedUser });
+          }
+        } else {
+          // Insert new user
+          const { data: insertedUser, error: insertError } = await supabaseServer
+            .from('users')
+            .insert(userData)
+            .select('id, email, name, role')
+            .single();
+
+          if (insertError) {
+            console.error(`Error inserting user ${userData.email}:`, insertError);
+            results.push({ email: userData.email, status: 'insert_failed', error: insertError.message });
+          } else {
+            results.push({ email: userData.email, status: 'created', user: insertedUser });
+          }
+        }
+      } catch (error) {
+        console.error(`Error processing user ${userData.email}:`, error);
+        results.push({ 
+          email: userData.email, 
+          status: 'error', 
+          error: error instanceof Error ? error.message : 'Unknown error' 
+        });
+      }
     }
 
-    // Insert users that don't exist
-    const { data: insertedUsers, error } = await supabaseServer
-      .from('users')
-      .insert(demoUsers)
-      .select('id, email, name, role');
-
-    if (error) {
-      console.error('Error seeding users:', error);
-      return NextResponse.json(
-        { 
-          success: false,
-          error: 'Failed to seed users', 
-          details: error.message 
-        },
-        { status: 500 }
-      );
-    }
+    const successful = results.filter(r => r.status === 'created' || r.status === 'updated');
+    const failed = results.filter(r => r.status !== 'created' && r.status !== 'updated');
 
     return NextResponse.json({
-      success: true,
-      message: `Successfully created ${insertedUsers?.length || 0} demo user(s)`,
-      users: insertedUsers,
+      success: failed.length === 0,
+      message: `Processed ${results.length} users. ${successful.length} successful, ${failed.length} failed.`,
+      results,
     });
   } catch (error) {
     console.error('Seed error:', error);
     return NextResponse.json(
-      { error: 'Internal server error', details: error instanceof Error ? error.message : 'Unknown error' },
+      { 
+        success: false,
+        error: 'Internal server error', 
+        details: error instanceof Error ? error.message : 'Unknown error' 
+      },
       { status: 500 }
     );
   }

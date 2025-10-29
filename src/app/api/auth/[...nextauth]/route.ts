@@ -22,7 +22,7 @@ const handler = NextAuth({
             .from('users')
             .select('*')
             .eq('email', credentials.email)
-            .single();
+            .maybeSingle();
 
           if (error) {
             console.error('Supabase error fetching user:', error);
@@ -31,6 +31,11 @@ const handler = NextAuth({
 
           if (!user) {
             console.error('User not found:', credentials.email);
+            return null;
+          }
+
+          if (!user.password) {
+            console.error('User has no password set:', credentials.email);
             return null;
           }
 
